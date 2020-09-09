@@ -171,12 +171,12 @@ def Stats_start_end(start, end):
             
         # Create a dictionary from the row data and append to a list of station_stats
             station_stats = []
-            for id, station, lowest, highest, avg, count in station_stats_query:
+            for id, station, min, max, avg, count in station_stats_query:
                 station_stats_dict = {}
                 station_stats_dict["ID"] = id
                 station_stats_dict["Station"] = station
-                station_stats_dict["Highest"] = highest
-                station_stats_dict["Lowest"] = lowest
+                station_stats_dict["Max"] = max
+                station_stats_dict["Min"] = min
                 station_stats_dict["Avg"] = avg
                 station_stats_dict["Count"] = count
                 station_stats.append(station_stats_dict)
@@ -224,12 +224,12 @@ def Stats_start_only(start):
             
         # Create a dictionary from the row data and append to a list of station_stats
             station_stats = []
-            for id, station, lowest, highest, avg, count in station_stats_query:
+            for id, station, min, max, avg, count in station_stats_query:
                 station_stats_dict = {}
                 station_stats_dict["ID"] = id
                 station_stats_dict["Station"] = station
-                station_stats_dict["Highest"] = highest
-                station_stats_dict["Lowest"] = lowest
+                station_stats_dict["Max"] = max
+                station_stats_dict["Min"] = min
                 station_stats_dict["Avg"] = avg
                 station_stats_dict["Count"] = count
                 station_stats.append(station_stats_dict)
