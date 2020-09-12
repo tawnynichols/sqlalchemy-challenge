@@ -15,12 +15,13 @@ from flask import Flask, jsonify
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///C:/Users/tawnyn/Documents/GitHub/sqlalchemy-challenge/Resources/hawaii.sqlite")
 
-#"sqlite:///01-Lesson-Plans/10-Advanced-Data-Storage-and-Retrieval/3/Activities/10-Ins_Flask_with_ORM/titanic.sqlite"
+# Connect to file
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
+
 # reflect the tables
 Base.prepare(engine, reflect=True)
 
@@ -66,16 +67,18 @@ def precipitation():
 
     """Return a list of dates for each prcp value"""
     # Query all dates and tobs
-    results = session.query(Measurement.date, Measurement.tobs).all()
+    results = session.query(Measurement.date, Measurement.prcp).\
+        filter(Measurement.date >= '2016-08-23').\
+        order_by(Measurement.date).all()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of all_precipitations
     all_precipitations = []
-    for date, tobs in results:
+    for date, prcp in results:
         precipitation_dict = {}
         precipitation_dict["date"] = date
-        precipitation_dict["tobs"] = tobs
+        precipitation_dict["prcp"] = prcp
         all_precipitations.append(precipitation_dict)
 
     return jsonify(all_precipitations)
@@ -124,7 +127,8 @@ def tobs():
     # Query all dates in the last year for most active station
     results = session.query(Measurement.station, Measurement.date, Measurement.tobs).\
             filter(active_station_name == Measurement.station).\
-            filter(Measurement.date >= '2016-08-23').all()
+            filter(Measurement.date >= '2016-08-23').\
+            order_by(Measurement.date).all()
 
     session.close()
 
